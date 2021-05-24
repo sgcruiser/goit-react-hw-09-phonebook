@@ -1,96 +1,102 @@
-import { Component } from 'react';
+import { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { authOperations } from '../../redux/auth';
 
 import Container from '../../components/Container';
 
 import styles from './RegisterView.module.scss';
 
-class RegisterView extends Component {
-  state = {
-    name: '',
-    email: '',
-    password: '',
-    disabled: true,
+const initialState = {
+  name: '',
+  email: '',
+  password: '',
+  disabled: true,
+};
+
+export default function RegisterView() {
+  const [state, setState] = useState(initialState);
+  const { name, email, password, disabled } = state;
+  const dispatch = useDispatch();
+
+  const onRegister = useCallback(
+    state => {
+      dispatch(authOperations.register(state));
+    },
+    [dispatch],
+  );
+
+  const handleChange = ({ target: { name, value } }) => {
+    setState(prev => ({ ...prev, [name]: value, disabled: false }));
   };
 
-  handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value, disabled: false });
-  };
-
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
 
-    this.props.onRegister(this.state);
-    this.reset();
+    onRegister(state);
+    reset();
   };
 
-  reset = () => {
-    this.setState({ name: '', email: '', password: '', disabled: true });
+  const reset = () => {
+    setState(initialState);
   };
 
-  render() {
-    const { name, email, password, disabled } = this.state;
+  return (
+    <Container>
+      <div className={styles.register}>
+        <h1 className={styles.register__title}>New User Registration</h1>
 
-    return (
-      <Container>
-        <div className={styles.register}>
-          <h1 className={styles.register__title}>New User Registration</h1>
+        <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
+          <label className={styles.register__label}>
+            Name
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter name"
+              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
+              required
+              value={name}
+              onChange={handleChange}
+              className={styles.register__input}
+            />
+          </label>
 
-          <form
-            onSubmit={this.handleSubmit}
-            style={styles.form}
-            autoComplete="off"
+          <label className={styles.register__label}>
+            Email
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter e-mail"
+              required
+              value={email}
+              onChange={handleChange}
+              className={styles.register__input}
+            />
+          </label>
+
+          <label className={styles.register__label}>
+            Password
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter password"
+              required
+              value={password}
+              onChange={handleChange}
+              className={styles.register__input}
+            />
+          </label>
+
+          <button
+            type="submit"
+            disabled={disabled}
+            className={styles.register__button}
           >
-            <label className={styles.register__label}>
-              Name
-              <input
-                type="text"
-                name="name"
-                value={name}
-                onChange={this.handleChange}
-                className={styles.register__input}
-                placeholder="Enter name"
-                required
-              />
-            </label>
-
-            <label className={styles.register__label}>
-              Email
-              <input
-                type="email"
-                name="email"
-                value={email}
-                onChange={this.handleChange}
-                className={styles.register__input}
-                placeholder="Enter e-mail"
-                required
-              />
-            </label>
-
-            <label className={styles.register__label}>
-              Password
-              <input
-                type="password"
-                name="password"
-                value={password}
-                onChange={this.handleChange}
-                className={styles.register__input}
-                placeholder="Enter password"
-                required
-              />
-            </label>
-
-            <button
-              type="submit"
-              disabled={disabled}
-              className={styles.register__button}
-            >
-              Create account
-            </button>
-          </form>
-        </div>
-      </Container>
-    );
-  }
+            Create account
+          </button>
+        </form>
+      </div>
+    </Container>
+  );
 }
-
-export default RegisterView;

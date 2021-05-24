@@ -1,1 +1,1 @@
-export { default } from './SearchContacts.container';
+export { default } from './SearchContacts';

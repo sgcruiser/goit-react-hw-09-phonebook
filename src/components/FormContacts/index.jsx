@@ -1,1 +1,1 @@
-export { default } from './FormContacts.container';
+export { default } from './FormContacts';

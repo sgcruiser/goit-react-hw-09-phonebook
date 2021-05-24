@@ -1,1 +1,1 @@
-export { default } from './PhonebookView.container';
+export { default } from './PhonebookView';

@@ -1,82 +1,90 @@
-import { Component } from 'react';
+import { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { authOperations } from '../../redux/auth';
 
 import Container from '../../components/Container';
 
 import styles from './LoginView.module.scss';
 
-class Login extends Component {
-  state = {
-    email: '',
-    password: '',
-    disabled: true,
+const initialState = {
+  email: '',
+  password: '',
+  disabled: true,
+};
+
+export default function LoginView() {
+  const [state, setState] = useState(initialState);
+  const { email, password, disabled } = state;
+  const dispatch = useDispatch();
+
+  const onLogin = useCallback(
+    state => {
+      dispatch(authOperations.logIn(state));
+    },
+    [dispatch],
+  );
+
+  const handleChange = ({ target: { name, value } }) => {
+    setState(prev => ({ ...prev, [name]: value, disabled: false }));
   };
 
-  handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value, disabled: false });
-  };
-
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
 
-    this.props.onLogin(this.state);
-    this.reset();
+    onLogin(state);
+    reset();
   };
 
-  reset = () => {
-    this.setState({ name: '', email: '', password: '', disabled: true });
+  const reset = () => {
+    setState(initialState);
   };
 
-  render() {
-    const { email, password, disabled } = this.state;
+  return (
+    <Container>
+      <div className={styles.login}>
+        <h1 className={styles.login__title}>Login in ...</h1>
 
-    return (
-      <Container>
-        <div className={styles.login}>
-          <h1 className={styles.login__title}>Login in ...</h1>
+        <form
+          onSubmit={handleSubmit}
+          className={styles.login__form}
+          autoComplete="off"
+        >
+          <label className={styles.login__label}>
+            Email
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleChange}
+              className={styles.login__input}
+              placeholder="Enter e-mail"
+              required
+            />
+          </label>
 
-          <form
-            onSubmit={this.handleSubmit}
-            className={styles.login__form}
-            autoComplete="off"
+          <label className={styles.login__label}>
+            Password
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={handleChange}
+              className={styles.login__input}
+              placeholder="Enter password"
+              required
+            />
+          </label>
+
+          <button
+            type="submit"
+            disabled={disabled}
+            className={styles.login__button}
           >
-            <label className={styles.login__label}>
-              Email
-              <input
-                type="email"
-                name="email"
-                value={email}
-                onChange={this.handleChange}
-                className={styles.login__input}
-                placeholder="Enter e-mail"
-                required
-              />
-            </label>
-
-            <label className={styles.login__label}>
-              Password
-              <input
-                type="password"
-                name="password"
-                value={password}
-                onChange={this.handleChange}
-                className={styles.login__input}
-                placeholder="Enter password"
-                required
-              />
-            </label>
-
-            <button
-              type="submit"
-              disabled={disabled}
-              className={styles.login__button}
-            >
-              Login
-            </button>
-          </form>
-        </div>
-      </Container>
-    );
-  }
+            Login
+          </button>
+        </form>
+      </div>
+    </Container>
+  );
 }
-
-export default Login;

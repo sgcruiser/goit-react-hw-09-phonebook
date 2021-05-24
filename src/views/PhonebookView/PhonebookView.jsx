@@ -1,4 +1,7 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-dom';
+
+import { contactsOperations, contactsSelectors } from '../../redux/contacts';
 
 import Container from '../../components/Container';
 import Section from '../../components/Section';
@@ -9,32 +12,34 @@ import Loader from '../../components/Loader';
 
 import styles from './PhonebookView.module.scss';
 
-class PhonebookView extends Component {
-  componentDidMount() {
-    this.props.fetchContacts();
-  }
+export default function PhonebookView() {
+  const dispatch = useDispatch();
 
-  render() {
-    return (
-      <Container>
-        <div className={styles.phonebook}>
-          <Section title="Phonebook">
-            <FormContacts />
-          </Section>
-          {this.props.isLoading && <Loader />}
+  const isLoading = useSelector(contactsSelectors.getLoading);
 
-          <Section title="Contacts">
-            <SearchContacts label="Find contacts by name" />
-            {this.props.isError ? (
-              <p className={styles.phonebook__error}>! Connection error</p>
-            ) : (
-              <ContactsList />
-            )}
-          </Section>
-        </div>
-      </Container>
-    );
-  }
+  const isError = useSelector(contactsSelectors.getError);
+
+  useEffect(() => {
+    dispatch(contactsOperations.fetchContacts());
+  }, [dispatch]);
+
+  return (
+    <Container>
+      <div className={styles.phonebook}>
+        <Section title="Phonebook">
+          <FormContacts />
+        </Section>
+        {isLoading && <Loader />}
+
+        <Section title="Contacts">
+          <SearchContacts label="Find contacts by name" />
+          {isError ? (
+            <p className={styles.phonebook__error}>! Connection error</p>
+          ) : (
+            <ContactsList />
+          )}
+        </Section>
+      </div>
+    </Container>
+  );
 }
-
-export default PhonebookView;

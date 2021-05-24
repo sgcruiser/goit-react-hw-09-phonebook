@@ -1,14 +1,31 @@
+import { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+
+import { contactsSelectors } from '../../redux/contacts';
+import { changeFilter } from '../../redux/contacts/contacts-actions';
 
 import styles from './SearchContacts.module.scss';
 
-const SearchContacts = ({ label, value, onChange }) => {
+export default function SearchContacts({ label }) {
+  const value = useSelector(contactsSelectors.getFilter);
+
+  const dispatch = useDispatch();
+
+  const onChange = useCallback(
+    event => {
+      dispatch(changeFilter(event.target.value));
+    },
+    [dispatch],
+  );
+
   return (
     <label className={styles.search}>
       <span className={styles.search__title}>{label}</span>
       <input
         type="text"
         name="name"
+        placeholder="Search"
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
         required
@@ -18,16 +35,12 @@ const SearchContacts = ({ label, value, onChange }) => {
       />
     </label>
   );
-};
+}
 
 SearchContacts.defaultProps = {
-  value: '',
+  label: '',
 };
 
 SearchContacts.propTypes = {
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  label: PropTypes.string,
 };
-
-export default SearchContacts;

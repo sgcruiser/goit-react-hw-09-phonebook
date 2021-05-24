@@ -1,35 +1,34 @@
-import PropTypes from 'prop-types';
-
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import routes from '../../routes';
 
+import { authSelectors } from '../../redux/auth';
+
 import styles from './Navigation.module.scss';
 
-const Navigation = ({ isAuthenticated }) => (
-  <nav>
-    <NavLink
-      to={routes.home}
-      exact
-      className={styles.link}
-      activeClassName={styles.link__active}
-    >
-      Home
-    </NavLink>
-    {isAuthenticated && (
+export default function Navigation() {
+  const isAuthenticated = useSelector(authSelectors.getIsAuthenticated);
+
+  return (
+    <nav>
       <NavLink
-        to={routes.contacts}
+        to={routes.home}
         exact
         className={styles.link}
         activeClassName={styles.link__active}
       >
-        Contacts
+        Home
       </NavLink>
-    )}
-  </nav>
-);
-
-Navigation.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
-};
-
-export default Navigation;
+      {isAuthenticated && (
+        <NavLink
+          to={routes.contacts}
+          exact
+          className={styles.link}
+          activeClassName={styles.link__active}
+        >
+          Contacts
+        </NavLink>
+      )}
+    </nav>
+  );
+}

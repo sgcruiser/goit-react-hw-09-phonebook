@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 import styles from './Section.module.scss';
 
-const Section = props => {
+export default function Section(props) {
   return (
     <section className={styles.section}>
       {props.title && (
@@ -11,7 +11,7 @@ const Section = props => {
       {props.children}
     </section>
   );
-};
+}
 
 Section.defaultProps = {
   title: '',
@@ -22,5 +22,3 @@ Section.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.node,
 };
-
-export default Section;
