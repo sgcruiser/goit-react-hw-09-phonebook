@@ -1,0 +1,60 @@
+@import '../../styles/shared.scss';
+
+.form {
+  width: 330px;
+  padding: 9px;
+  border: 1px solid $grey_enabled;
+  border-radius: 30px;
+
+  &__label {
+    justify-content: space-between;
+    display: flex;
+    margin-bottom: 10px;
+    font-weight: 500;
+
+    & > span {
+      padding-left: 10px;
+      padding-top: 3px;
+      padding-bottom: 3px;
+    }
+  }
+
+  &__input {
+    border-radius: 12px;
+    border: 1px solid $grey_enabled;
+    padding-left: 8px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__button {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: $grey_text;
+
+    background-color: $grey_disabled;
+
+    border: 1px solid $grey_disabled;
+    border-radius: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+
+    &:enabled {
+      border: 1px solid $grey_enabled;
+      color: $grey_enabled;
+
+      &:hover,
+      :focus {
+        background-color: $green_hover_background;
+        color: $green_hover;
+        border: 1px solid $green_hover;
+      }
+    }
+  }
+}

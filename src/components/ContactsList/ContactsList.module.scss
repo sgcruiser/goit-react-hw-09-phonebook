@@ -1,0 +1,41 @@
+@import '../../styles/shared.scss';
+
+.list {
+  width: 330px;
+  height: 345px;
+  padding: 9px;
+
+  overflow-y: scroll;
+
+  /* полоса прокрутки (скроллбар) */
+  &::-webkit-scrollbar {
+    width: 12px; /* ширина для вертикального скролла */
+    background-color: $grey_text;
+  }
+
+  /* ползунок скроллбара */
+  &::-webkit-scrollbar-thumb {
+    background-color: $grey_disabled;
+    border-radius: 9em;
+    box-shadow: inset 1px 1px 10px $green_hover_background;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: $green_hover_background;
+  }
+  /* Стрелки */
+
+  &::-webkit-scrollbar-button:vertical:start:decrement {
+    background: linear-gradient(120deg, $grey_enabled 40%, rgba(0, 0, 0, 0) 41%),
+      linear-gradient(240deg, $grey_enabled 40%, rgba(0, 0, 0, 0) 41%),
+      linear-gradient(0deg, $grey_enabled 30%, rgba(0, 0, 0, 0) 31%);
+    background-color: $grey_disabled;
+  }
+
+  &::-webkit-scrollbar-button:vertical:end:increment {
+    background: linear-gradient(300deg, $grey_enabled 40%, rgba(0, 0, 0, 0) 41%),
+      linear-gradient(60deg, $grey_enabled 40%, rgba(0, 0, 0, 0) 41%),
+      linear-gradient(180deg, $grey_enabled 30%, rgba(0, 0, 0, 0) 31%);
+    background-color: $grey_disabled;
+  }
+}

@@ -1,0 +1,17 @@
+@import '../../styles/shared.scss';
+
+.link {
+  display: inline-block;
+  text-decoration: none;
+  padding: 12px;
+  font-weight: 700;
+  color: $black;
+
+  &__active {
+    color: $green_hover;
+  }
+
+  &:hover {
+    color: $red;
+  }
+}

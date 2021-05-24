@@ -1,0 +1,63 @@
+@import '../../styles/shared.scss';
+
+.register {
+  &__title {
+    font-size: 24px;
+    text-align: center;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  &__form {
+    width: 320px;
+  }
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  &__input {
+    border-radius: 20px;
+    border: 1px solid $grey_enabled;
+    padding-left: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-top: 6px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__button {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: $grey_text;
+
+    background-color: $grey_disabled;
+
+    border: 1px solid $grey_disabled;
+    border-radius: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    &:enabled {
+      border: 1px solid $grey_enabled;
+      color: $grey_enabled;
+
+      &:hover,
+      :focus {
+        background-color: $green_hover_background;
+        color: $green_hover;
+        border: 1px solid $green_hover;
+      }
+    }
+  }
+}

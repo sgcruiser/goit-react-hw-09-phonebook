@@ -1,0 +1,43 @@
+@import '../../styles/shared.scss';
+
+.contact {
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    margin-top: 7px;
+
+    &:not(:last-child) {
+      margin-bottom: 7px;
+    }
+  }
+
+  &__name {
+    font-weight: 500;
+  }
+
+  &__number {
+    font-style: italic;
+  }
+
+  &__button {
+    background-color: $grey_disabled;
+    border-radius: 14px;
+    border: 1px solid $grey_enabled;
+    color: $grey_enabled;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    font-weight: 500;
+
+    &:hover,
+    :focus {
+      color: $red;
+      background-color: $red_hover;
+      border: 1px solid $red;
+    }
+  }
+}

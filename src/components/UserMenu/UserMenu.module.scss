@@ -1,0 +1,42 @@
+@import '../../styles/shared.scss';
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  margin-right: 4px;
+}
+
+.name {
+  font-weight: 700;
+  margin-right: 12px;
+
+  & > span {
+    color: $green_hover;
+  }
+}
+
+.button {
+  border-radius: 12px;
+  padding-bottom: 3px;
+  padding-top: 3px;
+
+  background-color: $grey_disabled;
+
+  border: 1px solid $grey_enabled;
+  color: $grey_enabled;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  // margin: 4px 2px;
+  font-weight: 500;
+
+  &:hover,
+  :focus {
+    color: $red;
+    background-color: $red_hover;
+    border: 1px solid $red;
+  }
+}

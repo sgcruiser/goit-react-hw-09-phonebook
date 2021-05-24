@@ -1,0 +1,19 @@
+@import '../../styles/shared.scss';
+
+.phonebook {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  height: 720px;
+  padding: 0 5px;
+
+  border: 3px solid $grey_enabled;
+  border-radius: 50px;
+
+  &__error {
+    color: $red;
+    font-size: 22px;
+    font-weight: 500;
+  }
+}
