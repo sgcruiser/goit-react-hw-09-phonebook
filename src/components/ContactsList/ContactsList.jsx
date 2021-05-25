@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import PropTypes from 'prop-types';
 
 import { contactsOperations, contactsSelectors } from '../../redux/contacts';
 
@@ -34,7 +33,3 @@ export default function ContactsList() {
     </ul>
   );
 }
-
-// ContactsList.propTypes = {
-//   contacts: PropTypes.array.isRequired,
-// };
